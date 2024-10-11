@@ -100,7 +100,7 @@ class OfflineReplayer(Monitor):
     def set_sampling_rate(self, sampling_rate):
         dm_collector_c.set_sampling_rate(sampling_rate)
 
-    def enable_log(self, type_name):
+    def enable_log(self, type_name, start_timestamp = None, end_timestamp = None):
         """
         Enable the messages to be monitored. Refer to cls.SUPPORTED_TYPES for supported types.
 
@@ -120,14 +120,18 @@ class OfflineReplayer(Monitor):
             if n not in self._type_names:
                 self._type_names.append(n)
                 self.log_info("Enable " + n)
-        dm_collector_c.set_filtered(self._type_names)
 
-    def enable_log_all(self):
+        start_timestamp = start_timestamp.timestamp() if start_timestamp else 0.0
+        end_timestamp = end_timestamp.timestamp() if end_timestamp else float('Inf')
+
+        dm_collector_c.set_filtered(self._type_names, start_timestamp, end_timestamp)
+
+    def enable_log_all(self, start_timestamp = None, end_timestamp = None):
         """
         Enable all supported logs
         """
         cls = self.__class__
-        self.enable_log(cls.SUPPORTED_TYPES)
+        self.enable_log(cls.SUPPORTED_TYPES, start_timestamp, end_timestamp)
 
     def set_input_path(self, path):
         """
