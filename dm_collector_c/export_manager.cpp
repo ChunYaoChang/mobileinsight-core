@@ -78,9 +78,9 @@ manager_export_binary (struct ExportManagerState *pstate, const char *b, size_t 
         packet_timestamp >= pstate->start_timestamp &&
         packet_timestamp <= pstate->end_timestamp) { // filter 
 
+        std::string frame = encode_hdlc_frame(b, (int) length);
+        pstate->log_object = frame;
         if (pstate->log_fp != NULL) {
-            std::string frame = encode_hdlc_frame(b, (int) length);
-            pstate->log_object = frame;
             size_t cnt = fwrite(frame.c_str(), sizeof(char), frame.size(), pstate->log_fp);
             (void)cnt;
         }
