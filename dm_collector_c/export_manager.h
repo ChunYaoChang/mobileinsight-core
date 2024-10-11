@@ -14,6 +14,7 @@ struct ExportManagerState {
     std::set<int> whitelist;
     double start_timestamp;
     double end_timestamp;
+    std::string log_object;
 };
 
 // Must be called before usage

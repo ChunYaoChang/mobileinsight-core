@@ -64,6 +64,7 @@ manager_init_state (struct ExportManagerState *pstate) {
     pstate->whitelist.clear();
     pstate->start_timestamp = 0.0;
     pstate->end_timestamp = DBL_MAX;
+    pstate->log_object = "";
     return;
 }
 
@@ -75,10 +76,11 @@ manager_export_binary (struct ExportManagerState *pstate, const char *b, size_t 
 
     if (pstate->whitelist.count(type_id) > 0 && 
         packet_timestamp >= pstate->start_timestamp &&
-        packet_timestamp <= pstate->end_timestamp) { // filter
+        packet_timestamp <= pstate->end_timestamp) { // filter 
 
         if (pstate->log_fp != NULL) {
             std::string frame = encode_hdlc_frame(b, (int) length);
+            pstate->log_object = frame;
             size_t cnt = fwrite(frame.c_str(), sizeof(char), frame.size(), pstate->log_fp);
             (void)cnt;
         }

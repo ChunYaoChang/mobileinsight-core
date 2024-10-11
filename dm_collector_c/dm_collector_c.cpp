@@ -715,7 +715,7 @@ dm_collector_c_receive_log_packet(PyObject *self, PyObject *args) {
                                                       frame.size() - 2,
                                                       skip_decoding);
                 if (include_timestamp) {
-                        PyObject *ret = Py_BuildValue("(Od)", decoded, posix_timestamp);
+                        PyObject *ret = Py_BuildValue("(Ody#)", decoded, posix_timestamp, g_emanager.log_object.c_str(), g_emanager.log_object.size());
 
                     if(decoded != Py_None)
                             Py_DECREF(decoded);
