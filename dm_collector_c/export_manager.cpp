@@ -19,7 +19,7 @@
 
 const double PER_SECOND = 52428800.0;
 const double PER_USECOND = 52428800.0 / 1.0e6;
-const time_t BASE_TIMESTAMP = 315993600; // Param for parsing raw timestamp into UNIX timestamp
+const time_t BASE_TIMESTAMP = 315964800; // Param for parsing raw timestamp into UNIX timestamp
 
 uint64_t
 get_timestamp(const char *b, size_t offset) {
